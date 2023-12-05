@@ -76,10 +76,10 @@ body {
   padding: 10px 10px;
   display: inline-block;
   font-family: Gill Sans, sans-serif;
-  font-weight:bold;
+  font-weight: bold;
   border-radius: 10px;
   box-sizing: border-box;
-  background-color:white;
+  background-color: white;
 }
 
 .logout_button {
@@ -102,6 +102,34 @@ body {
   width: 100vw;
 }
 
+.search-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 900px;
+}
+
+.search-header-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-bar {
+  display: flex;
+}
+
+.search-bar-breed {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-header-buttons {
+  margin: 0 5px;
+  position: relative;
+}
 .search-results {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -1,18 +1,14 @@
-import Login from "./pages/Login";
-import Logout from "./pages/Logout";
-import SearchBreeds from "./pages/SearchBreeds";
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppProvider from "./context/AppProvider";
+import Login from "./pages/Login";
+import SearchBreeds from "./pages/Search/SearchBreeds";
 import Favorites from "./pages/Favorites";
+import "./App.css";
 
-function App({}) {
-  const Auth = localStorage.getItem("isLoggedIn") === "true";
-
+function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        {Auth === true ? <Logout /> : <></>}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/search" element={<SearchBreeds />} />

@@ -36,8 +36,6 @@ export const handleSubmit = async (
     const response = await submitFunction(name, email);
     if (response) {
       navigate("/search");
-      window.location.reload();
-      localStorage.setItem("isLoggedIn", true.toString());
     } else {
       console.error("Login failed");
     }

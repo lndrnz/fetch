@@ -1,23 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { handleInputChange, handleSubmit } from "../adapters/LoginAdapters";
-import "../App.css";
 
 const Login = () => {
   const [name, setName] = useState<string>("test");
   const [email, setEmail] = useState<string>("lander@gmail.com");
-  const [auth, setAuth] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const localAuth = localStorage.getItem("isLoggedIn") === "true";
 
-  useEffect(() => {
-    setAuth(localAuth);
-  }, []);
 
   return (
     <div>
-      {auth === false ? (
         <div className="login">
           <div className="header_container">
             <h1 className="login_header">Pawfect Match</h1>
@@ -48,9 +41,6 @@ const Login = () => {
             </button>
           </form>
         </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };
