@@ -19,7 +19,10 @@ const Login = () => {
     <div>
       {auth === false ? (
         <div className="login">
-          <h1 className="login_header">PawfectMatch</h1>
+          <div className="header_container">
+            <h1 className="login_header">Pawfect Match</h1>
+            <p className="login_paragraph">Find the perfect pet for you!</p>
+          </div>
           <form
             className="login_form"
             onSubmit={(e) => handleSubmit(e, name, email, navigate)}
@@ -50,6 +53,6 @@ const Login = () => {
       )}
     </div>
   );
-}
+};
 
 export default Login;

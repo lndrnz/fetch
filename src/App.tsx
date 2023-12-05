@@ -13,9 +13,6 @@ function App({}) {
     <AppProvider>
       <BrowserRouter>
         {Auth === true ? <Logout /> : <></>}
-        <audio controls autoPlay>
-        <source src="LastChristmas.mp3" type="audio/mp3" />
-      </audio>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/search" element={<SearchBreeds />} />

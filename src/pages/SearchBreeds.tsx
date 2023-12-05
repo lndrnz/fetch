@@ -1,48 +1,59 @@
-import { useState, useEffect, ChangeEvent, FormEvent, useContext } from "react";
+import { useEffect, ChangeEvent, FormEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchBreedsContext } from "../context/SearchBreedsContext";
 import { searchFunction, getSearch } from "../adapters/SearchAdapters";
 import { getBreeds } from "../adapters/BreedsAdapters";
-import { SearchResult } from "../types/types";
 import { handleZip } from "../adapters/LocationAdapters";
-import Favorites from "./Favorites";
 
 const SearchBreeds = () => {
-  const [search, setSearch] = useState<string[]>([]);
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [totalBreeds, setBreeds] = useState<string[]>([]);
-  const [breedType, setBreedType] = useState<string>("");
-  const [selectedBreed, setSelectedBreed] = useState<string>("");
-  const [suggestedBreeds, setSuggestedBreeds] = useState<string[]>([]);
-  const [ageMin, setAgeMin] = useState<number>(0);
-  const [ageMax, setAgeMax] = useState<number>(20);
-  const [category, setCategory] = useState<boolean>(true);
-  const [city, setCity] = useState<string>("");
-  const [state, setState] = useState<string>("");
-
   const navigate = useNavigate();
 
-
-  const { favoriteResults, setFavoriteResults, favorites, setFavorites, petNames, setPetNames} = useContext(SearchBreedsContext)
-
-
+  const {
+    favoriteResults,
+    setFavoriteResults,
+    favorites,
+    setFavorites,
+    petNames,
+    setPetNames,
+    search,
+    setSearch,
+    searchResults,
+    setSearchResults,
+    totalBreeds,
+    setBreeds,
+    breedType,
+    setBreedType,
+    selectedBreed,
+    setSelectedBreed,
+    suggestedBreeds,
+    setSuggestedBreeds,
+    ageMin,
+    setAgeMin,
+    ageMax,
+    setAgeMax,
+    category,
+    setCategory,
+    city,
+    setCity,
+    state,
+    setState,
+  } = useContext(SearchBreedsContext);
 
   console.log(favoriteResults);
   const handleFavoriteClick = (petId: string[], petName: string[]) => {
     if (favorites.includes(petId)) {
       setFavorites(favorites.filter((id) => id !== petId));
-
     } else {
       setFavorites([...favorites, petId]);
-      setPetNames([...petNames, petName])
+      setPetNames([...petNames, petName]);
     }
   };
   const handleFavorites = async () => {
     const response = await getSearch(favorites);
     if (response) {
-      console.log()
+      console.log();
       setFavoriteResults(response);
-      navigate("/favorites")
+      navigate("/favorites");
     } else {
       console.log("getSearch Failed!");
       setFavoriteResults([]);
@@ -139,13 +150,13 @@ const SearchBreeds = () => {
   };
 
   useEffect(() => {
-    console.log(favorites)
+    console.log(favorites);
     handlegetSearch();
   }, [search]);
 
   return (
     <div className="search-page">
-      <h1>Your Favorite Pets: {petNames.join(", ")}!</h1>
+      <h1>Total Favorite Pets: {petNames.length}</h1>
       <div>
         <h1>Search by {category ? "Breed" : "Location"}</h1>
         <button onClick={() => setCategory(!category)}>Switch Search</button>
@@ -195,10 +206,9 @@ const SearchBreeds = () => {
             {/* size of results, from?, sort asc|desc*/}
             <button type="submit">Search</button>
           </form>
-          <button onClick={handleFavorites}>
-          Show Favorites</button>
+          <button onClick={handleFavorites}>Show Favorites</button>
 
-          <h1>Search Results {searchResults.length}</h1>
+          <h1>{searchResults.length !== 0 ? `Search Results: ${searchResults.length}`: ""}</h1>
           {searchResults.map((result, index) => (
             <div key={index}>
               <img src={result.img} alt={`Image of ${result.name}`} />
@@ -206,7 +216,9 @@ const SearchBreeds = () => {
               <div>{result.breed}</div>
               <div>{result.age}</div>
               <div>{result.zip_code}</div>
-              <button onClick={() => handleFavoriteClick(result.id, result.name)}>
+              <button
+                onClick={() => handleFavoriteClick(result.id, result.name)}
+              >
                 {favorites.includes(result.id) ? "Unfavorite" : "Favorite"}
               </button>
             </div>
@@ -234,14 +246,13 @@ const SearchBreeds = () => {
             />
             <button type="submit">Search</button>
           </form>
-          <button onClick={handleFavorites}>
-          Show Favorites</button>
+          <button onClick={handleFavorites}>Show Favorites</button>
           <h1>Search Results {searchResults.length}</h1>
           <div className="search-results">
             {searchResults.map((result, index) => (
               <div key={index} className="search-result-item">
                 <div className="image-container">
-                <img src={result.img} alt={`Image of ${result.name}`} />
+                  <img src={result.img} alt={`Image of ${result.name}`} />
                 </div>
                 <div className="dog-info">
                   <span className="dog-info-text">
