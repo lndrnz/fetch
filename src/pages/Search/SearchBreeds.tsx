@@ -39,6 +39,14 @@ const SearchBreeds = () => {
     setCity,
     state,
     setState,
+    currentPage,
+    setCurrentPage,
+    petsPerPage,
+    lastIndex,
+    firstIndex,
+    pets,
+    totalPages,
+    numbers,
   } = useContext(SearchBreedsContext);
 
   console.log(favoriteResults);
@@ -156,6 +164,25 @@ const SearchBreeds = () => {
     handlegetSearch();
   }, [search]);
 
+  const prePage = () => {
+    if (currentPage === 1) return null;
+    if (currentPage !== firstIndex) {
+      setCurrentPage(currentPage - 1);
+    } else {
+      null;
+    }
+  };
+
+  const changePage = (id: number) => {
+    setCurrentPage(id);
+  };
+  const nextPage = () => {
+    if (currentPage === 10) return null;
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div>
       <div style={{ width: "100vw", display: "flex", justifyContent: "right" }}>
@@ -176,7 +203,13 @@ const SearchBreeds = () => {
             </h1>
           </div>
           <div className="search-header-items">
-            <h1>Total <a className="header-button"onClick={handleFavorites}>Favorite Pets:</a> {petNames.length}</h1>
+            <h1>
+              Total{" "}
+              <a className="header-button" onClick={handleFavorites}>
+                Favorite Pets:
+              </a>{" "}
+              {petNames.length}
+            </h1>
           </div>
         </div>
         {category ? (
@@ -239,94 +272,14 @@ const SearchBreeds = () => {
                 : ""}
             </h1>
             <div className="search-results">
-              {searchResults.map((result: SearchResult, index: number) => (
+              {pets.map((result: SearchResult, index: number) => (
                 <div
+                  key={index}
                   className={
                     favorites.includes(result.id) ? "favorite" : "basic"
                   }
                 >
-                  <div key={index} className="search-result-item">
-                    <div className="image-container">
-                      <img
-                        className="search-result-item-image"
-                        src={result.img}
-                        alt={`Image of ${result.name}`}
-                      />
-                    </div>
-                    <div className="dog-info">
-                      <span className="dog-info-text">
-                        <div>{result.name}</div>
-                        <div>{result.breed}</div>
-                        <div>Age: {result.age}</div>
-                        <div>ZIP: {result.zip_code}</div>
-                      </span>
-
-                      {favorites.includes(result.id) ? (
-                        <img
-                          className="star pointer"
-                          src="https://i.imgur.com/9fuxfxy.png"
-                          alt="Unfavorited"
-                          onClick={() =>
-                            handleFavoriteClick(result.id, result.name)
-                          }
-                        />
-                      ) : (
-                        <img
-                          className="star pointer"
-                          src="https://i.imgur.com/cecWS0L.png"
-                          alt="favorited"
-                          onClick={() =>
-                            handleFavoriteClick(result.id, result.name)
-                          }
-                          title="Favorited"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div>
-            <form
-              className="search-bar"
-              style={{ display: "flex" }}
-              onSubmit={(e) => handleLocationSearch(e, city, state)}
-            >
-              <input
-                className="search-bar-location"
-                type="text"
-                name="city"
-                value={city}
-                placeholder="city"
-                onChange={(e) => handleSearchChange(e, setCity)}
-              />
-              <input
-                className="search-bar-location"
-                type="text"
-                name="state"
-                value={state}
-                placeholder="state"
-                onChange={(e) => handleSearchChange(e, setState)}
-              />
-              <button className="search-bar-button" type="submit">
-                Search
-              </button>
-            </form>
-            <h1>
-              {searchResults.length !== 0
-                ? `Search Results: ${searchResults.length}`
-                : ""}
-            </h1>
-            <div className="search-results">
-              {searchResults.map((result: SearchResult, index: number) => (
-                <div
-                  className={
-                    favorites.includes(result.id) ? "favorite" : "basic"
-                  }
-                >
-                  <div key={index} className="search-result-item">
+                  <div className="search-result-item">
                     <div className="image-container">
                       <img
                         className="search-result-item-image"
@@ -365,6 +318,148 @@ const SearchBreeds = () => {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div style={{ display: "flex" }}>
+              {searchResults.length !== 0 ? (
+                <nav className="pagination">
+                  <h3 className="pointer prev" onClick={() => prePage()}>
+                    Prev
+                  </h3>
+                  <div className="page-numbers">
+                    {numbers.map((number: number, index: number) => (
+                      <div
+                        key={index}
+                        className={currentPage === number ? "selected" : ""}
+                      >
+                        <h4
+                          className="number"
+                          onClick={() => changePage(number)}
+                        >
+                          {number}
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
+                  <h3 className="pointer next" onClick={() => nextPage()}>
+                    Next
+                  </h3>
+                </nav>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <form
+              className="search-bar"
+              style={{ display: "flex" }}
+              onSubmit={(e) => handleLocationSearch(e, city, state)}
+            >
+              <input
+                className="search-bar-location"
+                type="text"
+                name="city"
+                value={city}
+                placeholder="city"
+                onChange={(e) => handleSearchChange(e, setCity)}
+              />
+              <input
+                className="search-bar-location"
+                type="text"
+                name="state"
+                value={state}
+                placeholder="state"
+                onChange={(e) => handleSearchChange(e, setState)}
+              />
+              <button className="search-bar-button" type="submit">
+                Search
+              </button>
+            </form>
+            <h1>
+              {searchResults.length !== 0
+                ? `Search Results: ${searchResults.length}`
+                : ""}
+            </h1>
+            <div className="search-results">
+              {pets.map((result: SearchResult, index: number) => (
+                <div
+                  key={index}
+                  className={
+                    favorites.includes(result.id) ? "favorite" : "basic"
+                  }
+                >
+                  <div className="search-result-item">
+                    <div className="image-container">
+                      <img
+                        className="search-result-item-image"
+                        src={result.img}
+                        alt={`Image of ${result.name}`}
+                      />
+                    </div>
+                    <div className="dog-info">
+                      <span className="dog-info-text">
+                        <p>{result.name}</p>
+                        <p>{result.breed}</p>
+                        <p>Age: {result.age}</p>
+                        <p>ZIP: {result.zip_code}</p>
+                      </span>
+                      {favorites.includes(result.id) ? (
+                        <img
+                          className="star pointer"
+                          src="https://i.imgur.com/9fuxfxy.png"
+                          alt="Unfavorited"
+                          onClick={() =>
+                            handleFavoriteClick(result.id, result.name)
+                          }
+                        />
+                      ) : (
+                        <img
+                          className="star pointer"
+                          src="https://i.imgur.com/cecWS0L.png"
+                          alt="favorited"
+                          onClick={() =>
+                            handleFavoriteClick(result.id, result.name)
+                          }
+                          title="Favorited"
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex" }}>
+              {searchResults.length !== 0 ? (
+                <nav className="pagination">
+                  <h3 className="pointer prev" onClick={() => prePage()}>
+                    Prev
+                  </h3>
+                  <div className="page-numbers">
+                    {numbers.map((number: number, index: number) => (
+                      <div
+                        key={index}
+                        className={
+                          currentPage === number ? "selected pointer" : ""
+                        }
+                      >
+                        <h4
+                          className="number"
+                          onClick={() => changePage(number)}
+                        >
+                          {number}
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
+                  <h3 className="pointer next" onClick={() => nextPage()}>
+                    Next
+                  </h3>
+                </nav>
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
         )}
