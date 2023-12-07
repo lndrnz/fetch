@@ -167,7 +167,7 @@ const SearchBreeds = () => {
             <h1>
               Search by{" "}
               <a
-                className="switch-button"
+                className="header-button"
                 onClick={() => setCategory(!category)}
               >
                 {" "}
@@ -176,10 +176,7 @@ const SearchBreeds = () => {
             </h1>
           </div>
           <div className="search-header-items">
-            <h1>Total Favorite Pets: {petNames.length}</h1>
-            <button className="show-favorites" onClick={handleFavorites}>
-              My Favorites
-            </button>
+            <h1>Total <a className="header-button"onClick={handleFavorites}>Favorite Pets:</a> {petNames.length}</h1>
           </div>
         </div>
         {category ? (

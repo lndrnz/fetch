@@ -4,7 +4,7 @@ const BackButton = () => {
   };
 
   return (
-    <button
+    <button className="logout_button"
       onClick={handleGoBack}
     >
       Back

@@ -193,13 +193,13 @@ body {
   background-color: rgb(255, 174, 23);
 }
 
-.switch-button {
+.header-button {
   cursor: pointer;
   text-decoration: underline;
   
 }
 
-.switch-button:hover {
+.header-button:hover {
   color: rgb(255, 174, 23);
 }
 
