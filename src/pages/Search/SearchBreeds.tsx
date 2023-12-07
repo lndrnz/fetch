@@ -42,9 +42,9 @@ const SearchBreeds = () => {
   } = useContext(SearchBreedsContext);
 
   console.log(favoriteResults);
-  const handleFavoriteClick = (petId: string, petName: string[]) => {
+  const handleFavoriteClick = (petId: string, petName: string) => {
     if (favorites.includes(petId)) {
-      setFavorites(favorites.filter((id: string[]) => id !== petId));
+      setFavorites(favorites.filter((id: string) => id !== petId));
     } else {
       setFavorites([...favorites, petId]);
       setPetNames([...petNames, petName]);
@@ -158,47 +158,64 @@ const SearchBreeds = () => {
 
   return (
     <div>
-      <Logout />
+      <div style={{ width: "100vw", display: "flex", justifyContent: "right" }}>
+        <Logout />
+      </div>
       <div className="search-page">
         <div className="search-header">
           <div className="search-header-items">
-          <h1>Search by {category ? "Breed" : "Location"}</h1>
-          <button className="search-header-buttons" onClick={() => setCategory(!category)}>Switch Search</button>
+            <h1>
+              Search by{" "}
+              <a
+                className="switch-button"
+                onClick={() => setCategory(!category)}
+              >
+                {" "}
+                {category ? "Breed" : "Location"}
+              </a>
+            </h1>
           </div>
           <div className="search-header-items">
-          <h1>Total Favorite Pets: {petNames.length}</h1>
-          <button className="search-header-buttons" onClick={handleFavorites}>Show Favorites</button>
+            <h1>Total Favorite Pets: {petNames.length}</h1>
+            <button className="show-favorites" onClick={handleFavorites}>
+              My Favorites
+            </button>
           </div>
         </div>
         {category ? (
           <div>
             <form
-            className="search-bar"
+              className="search-bar"
               onSubmit={(e) => handleSearch(e, breedType, ageMin, ageMax)}
             >
               <div className="search-bar-breed">
-                <input
-                  type="text"
-                  name="name"
-                  value={breedType}
-                  placeholder="breed"
-                  onChange={(e) => handleBreedChange(e, setBreedType)}
-                />
-                <select
-                  value={selectedBreed}
-                  onChange={(e) => handleBreedChange(e, setBreedType)}
-                >
-                  <option value="">Select a breed...</option>
+                <div style={{ width: "180px", marginRight: "10px" }}>
+                  <input
+                    className="search-bar-breed-2"
+                    type="text"
+                    name="name"
+                    value={breedType}
+                    placeholder="breed"
+                    onChange={(e) => handleBreedChange(e, setBreedType)}
+                  />
+                  <select
+                    className="search-bar-breed-3"
+                    value={selectedBreed}
+                    onChange={(e) => handleBreedChange(e, setBreedType)}
+                  >
+                    <option value="">Select a breed...</option>
 
-                  {suggestedBreeds.map((breed: string, index: number) => (
-                    <option key={index} value={breed}>
-                      {breed}
-                    </option>
-                  ))}
-                </select>
+                    {suggestedBreeds.map((breed: string, index: number) => (
+                      <option key={index} value={breed}>
+                        {breed}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <input
+                className="search-bar-breed"
                 type="text"
                 name="minage"
                 value={ageMin}
@@ -206,6 +223,7 @@ const SearchBreeds = () => {
                 onChange={(e) => handleSearchChange(e, setAgeMin)}
               />
               <input
+                className="search-bar-breed"
                 type="text"
                 name="maxage"
                 value={ageMax}
@@ -213,7 +231,9 @@ const SearchBreeds = () => {
                 onChange={(e) => handleSearchChange(e, setAgeMax)}
               />
               {/* size of results, from?, sort asc|desc*/}
-              <button type="submit">Search</button>
+              <button className="search-bar-button" type="submit">
+                Search
+              </button>
             </form>
 
             <h1>
@@ -223,27 +243,48 @@ const SearchBreeds = () => {
             </h1>
             <div className="search-results">
               {searchResults.map((result: SearchResult, index: number) => (
-                <div key={index} className="search-result-item">
-                  <div className="image-container">
-                    <img src={result.img} alt={`Image of ${result.name}`} />
-                  </div>
-                  <div className="dog-info">
-                    <span className="dog-info-text">
-                      <div>{result.name}</div>
-                      <div>{result.breed}</div>
-                      <div>Age:{result.age}</div>
-                      <div>ZIP: {result.zip_code}</div>
-                    </span>
-                    <button
-                      className="favorite-button"
-                      onClick={() =>
-                        handleFavoriteClick(result.id, result.name)
-                      }
-                    >
-                      {favorites.includes(result.id)
-                        ? "Unfavorite"
-                        : "Favorite"}
-                    </button>
+                <div
+                  className={
+                    favorites.includes(result.id) ? "favorite" : "basic"
+                  }
+                >
+                  <div key={index} className="search-result-item">
+                    <div className="image-container">
+                      <img
+                        className="search-result-item-image"
+                        src={result.img}
+                        alt={`Image of ${result.name}`}
+                      />
+                    </div>
+                    <div className="dog-info">
+                      <span className="dog-info-text">
+                        <div>{result.name}</div>
+                        <div>{result.breed}</div>
+                        <div>Age: {result.age}</div>
+                        <div>ZIP: {result.zip_code}</div>
+                      </span>
+
+                      {favorites.includes(result.id) ? (
+                        <img
+                          className="star pointer"
+                          src="https://i.imgur.com/9fuxfxy.png"
+                          alt="Unfavorited"
+                          onClick={() =>
+                            handleFavoriteClick(result.id, result.name)
+                          }
+                        />
+                      ) : (
+                        <img
+                          className="star pointer"
+                          src="https://i.imgur.com/cecWS0L.png"
+                          alt="favorited"
+                          onClick={() =>
+                            handleFavoriteClick(result.id, result.name)
+                          }
+                          title="Favorited"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -252,10 +293,12 @@ const SearchBreeds = () => {
         ) : (
           <div>
             <form
+              className="search-bar"
               style={{ display: "flex" }}
               onSubmit={(e) => handleLocationSearch(e, city, state)}
             >
               <input
+                className="search-bar-location"
                 type="text"
                 name="city"
                 value={city}
@@ -263,13 +306,16 @@ const SearchBreeds = () => {
                 onChange={(e) => handleSearchChange(e, setCity)}
               />
               <input
+                className="search-bar-location"
                 type="text"
                 name="state"
                 value={state}
                 placeholder="state"
                 onChange={(e) => handleSearchChange(e, setState)}
               />
-              <button type="submit">Search</button>
+              <button className="search-bar-button" type="submit">
+                Search
+              </button>
             </form>
             <h1>
               {searchResults.length !== 0
@@ -278,27 +324,47 @@ const SearchBreeds = () => {
             </h1>
             <div className="search-results">
               {searchResults.map((result: SearchResult, index: number) => (
-                <div key={index} className="search-result-item">
-                  <div className="image-container">
-                    <img src={result.img} alt={`Image of ${result.name}`} />
-                  </div>
-                  <div className="dog-info">
-                    <span className="dog-info-text">
-                      <p>{result.name}</p>
-                      <p>{result.breed}</p>
-                      <p>Age: {result.age}</p>
-                      <p>ZIP: {result.zip_code}</p>
-                    </span>
-                    <button
-                      className="favorite-button"
-                      onClick={() =>
-                        handleFavoriteClick(result.id, result.name)
-                      }
-                    >
-                      {favorites.includes(result.id)
-                        ? "Unfavorite"
-                        : "Favorite"}
-                    </button>
+                <div
+                  className={
+                    favorites.includes(result.id) ? "favorite" : "basic"
+                  }
+                >
+                  <div key={index} className="search-result-item">
+                    <div className="image-container">
+                      <img
+                        className="search-result-item-image"
+                        src={result.img}
+                        alt={`Image of ${result.name}`}
+                      />
+                    </div>
+                    <div className="dog-info">
+                      <span className="dog-info-text">
+                        <p>{result.name}</p>
+                        <p>{result.breed}</p>
+                        <p>Age: {result.age}</p>
+                        <p>ZIP: {result.zip_code}</p>
+                      </span>
+                      {favorites.includes(result.id) ? (
+                        <img
+                          className="star pointer"
+                          src="https://i.imgur.com/9fuxfxy.png"
+                          alt="Unfavorited"
+                          onClick={() =>
+                            handleFavoriteClick(result.id, result.name)
+                          }
+                        />
+                      ) : (
+                        <img
+                          className="star pointer"
+                          src="https://i.imgur.com/cecWS0L.png"
+                          alt="favorited"
+                          onClick={() =>
+                            handleFavoriteClick(result.id, result.name)
+                          }
+                          title="Favorited"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

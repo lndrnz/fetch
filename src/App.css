@@ -63,6 +63,7 @@ body {
 }
 
 .input_form {
+  margin-left: 5px;
   width: 100%;
   padding: 10px 10px;
   display: inline-block;
@@ -72,30 +73,51 @@ body {
 }
 
 .login_button {
+  cursor: pointer;
   width: 100%;
   padding: 10px 10px;
+  margin-left: 5px;
   display: inline-block;
   font-family: Gill Sans, sans-serif;
   font-weight: bold;
   border-radius: 10px;
   box-sizing: border-box;
+  border-style: none;
   background-color: white;
 }
 
+.login_button:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Logout Button */
 .logout_button {
-  top: 60px;
-  height: 65px;
-  position: fixed;
-  right: 2rem;
-  bottom: 77.5%;
   cursor: pointer;
+  top: 20px;
+  height: 50px;
+  position: relative;
+  right: 2rem;
+  padding: 1px 10px;
+  font-size: 15px;
+  font-family: Gill Sans, sans-serif;
+  font-weight: bold;
   z-index: 900;
+  border-radius: 30px;
+  border-style: none;
+  background-color: white;
+}
+
+.logout_button:hover {
+  background-color: rgb(255, 174, 23);
 }
 
 /* Search Page */
 
 .search-page {
   display: flex;
+  font-family: Gill Sans, sans-serif;
+  font-weight: bold;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -107,7 +129,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 900px;
+  width: 1000px;
 }
 
 .search-header-items {
@@ -121,29 +143,124 @@ body {
   display: flex;
 }
 
+.search-bar-breed-2 {
+  font-family: Gill Sans, sans-serif;
+  border-radius: 8px;
+  font-weight: bold;
+  width: 183px;
+  padding: 0;
+  margin: 0;
+}
+
+.search-bar-breed-3 {
+  font-family: Gill Sans, sans-serif;
+  border-radius: 8px;
+  font-weight: bold;
+  width: 187px;
+  padding: 0;
+  margin: 0;
+}
+
 .search-bar-breed {
   display: flex;
   flex-direction: column;
+  font-family: Gill Sans, sans-serif;
+  font-weight: bold;
+  border-radius: 8px;
 }
 
-.search-header-buttons {
+.search-bar-location {
+  display: flex;
+  flex-direction: column;
+  font-family: Gill Sans, sans-serif;
+  font-weight: bold;
+  padding: 11px 47px 11px 46.5px;
+  border-radius: 10px;
+}
+
+.search-bar-button {
+  cursor: pointer;
+  padding: 10px;
+  margin-left: 10px;
+  font-family: Gill Sans, sans-serif;
+  font-weight: bold;
+  border-style: none;
+  border-radius: 25px;
+  background-color: white;
+}
+
+.search-bar-button:hover {
+  background-color: rgb(255, 174, 23);
+}
+
+.switch-button {
+  cursor: pointer;
+  text-decoration: underline;
+  
+}
+
+.switch-button:hover {
+  color: rgb(255, 174, 23);
+}
+
+.show-favorites {
   margin: 0 5px;
   position: relative;
 }
+
+/* Search Results */
 .search-results {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
+.basic {
+  background-color: white;
+  display: flex;
+  border-radius: 25px;
+  height: 480px;
+  width: 431px;
+  overflow: hidden;
+  position: relative;
+  z-index: 900;
+}
+
+.favorite {
+  --angle: 0deg;
+  display: flex;
+  background-image: conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red);
+  border-radius: 25px;
+  height: 480px;
+  width: 431px;
+  overflow: hidden;
+  animation: 3s rotate linear infinite;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  z-index: 900;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+
 .search-result-item {
-  border: 1px solid #ddd;
-  padding: 10px;
+  background-color: black;
+  border-radius: 25px;
+  padding: 10px; 
   text-align: center;
   margin: auto;
   height: 450px;
   width: 400px;
-  /* overflow: hidden; */
 }
 
 .search-result-item p {
@@ -151,10 +268,11 @@ body {
   margin: 0;
 }
 
-.search-result-item img {
+.search-result-item-image{
   height: 100%;
   width: 100%;
   z-index: 1;
+  border-radius: 20px;
 }
 
 .image-container {
@@ -170,4 +288,18 @@ body {
 .dog-info-text {
   display: flex;
   justify-content: space-around;
+}
+
+.star {
+  margin: 20px;
+  top: 0px;
+  right: 0px;
+  width: 50px;
+  height: 50px;
+  z-index: 900;
+  position: absolute;
+}
+
+.pointer {
+  cursor: pointer;
 }

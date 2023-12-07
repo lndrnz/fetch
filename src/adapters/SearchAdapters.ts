@@ -16,7 +16,6 @@ export const searchFunction = async (
     ([_, value]) => value !== undefined && value !== ""
   );
   const addedParams = new URLSearchParams(filteredParams).toString();
-  //   console.log(addedParams) work on this bug later
   const filteredURL = `${apiUrl}${addedParams}`;
   try {
     const response = await axios.get(filteredURL, { withCredentials: true });

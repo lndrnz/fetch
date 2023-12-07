@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { SearchBreedsContext } from "../context/SearchBreedsContext";
 import BackButton from "./BackButton";
+import { SearchResult } from "../types/types";
 
 
 const Favorites = () => {
@@ -9,19 +10,28 @@ const Favorites = () => {
   return (
     <div>
         <BackButton/>
+    <div className="search-page">
       <div>
-        <h1>Favorite Results {favoriteResults.length}</h1>
-        {/* <button onClick={() => setFavs(!showFavs)}>Hide</button> */}
+        {favoriteResults.length === 0 ? <h1>No Favorites Selected!</h1>: <h1>Total Favorite Pets: {favoriteResults.length}</h1>}
       </div>
-      {favoriteResults.map((result, index) => (
-        <div key={index}>
+      <div className="search-results">
+      {favoriteResults.map((result: SearchResult, index: number) => (
+        <div key={index} className="search-result-item">
+           <div className="image-container">
           <img src={result.img} alt={`Image of ${result.name}`} />
+          </div>
+          <div className="dog-info">
+          <span className="dog-info-text">
           <div>{result.name}</div>
           <div>{result.breed}</div>
           <div>{result.age}</div>
           <div>{result.zip_code}</div>
+          </span>
+          </div>
         </div>
       ))}
+    </div>
+    </div>
     </div>
   );
 };

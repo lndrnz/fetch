@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SearchResult } from "../types/types";
 //Gets ZipCodes by City or State
 export const locationSearch = async (city?: string, state?: string) => {
   const body = {
@@ -9,7 +10,7 @@ export const locationSearch = async (city?: string, state?: string) => {
 
   try {
     const response = await axios.post(apiUrl, body, { withCredentials: true });
-    const zipCodes = response.data.results.map((result) => result.zip_code);
+    const zipCodes = response.data.results.map((result: SearchResult) => result.zip_code);
     console.log("location search worked");
     return zipCodes;
   } catch (err) {
@@ -41,7 +42,7 @@ export const handleZip = async (city?: any, state?: any) => {
   try {
     const zip_codes = await locationSearch(city, state);
     const dog_ids = await Promise.all(
-      zip_codes.map(async (zip) => {
+      zip_codes.map(async (zip: string) => {
         const response = await searchZipFunction(zip);
         return response;
       })
