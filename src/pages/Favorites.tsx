@@ -14,7 +14,7 @@ const Favorites = () => {
       </div>
     <div className="search-page">
       <div>
-        {favoriteResults.length === 0 ? <h1>No Favorites Selected!</h1>: <h1>Total Favorite Pets: {favoriteResults.length}</h1>}
+        {favoriteResults.length === 0 ? <h1>No Pets Selected!</h1>: <h1>Total Favorite Pets: {favoriteResults.length}</h1>}
       </div>
       <div className="search-results">
       {favoriteResults.map((result: SearchResult, index: number) => (

@@ -21,3 +21,9 @@ export type favoriteResults = {
   name: string;
   zip_code: string;
 }
+
+export type queryParamProps = {
+  breeds?: string,
+  ageMin?: number,
+  ageMax?: number,
+};

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { queryParamProps } from "../types/types";
 
 //Takes Search Inputs, creates Search URL, and makes get request of IDs
 export const searchFunction = async (
@@ -7,7 +8,7 @@ export const searchFunction = async (
   ageMax?: number
 ) => {
   const apiUrl = import.meta.env.VITE_SEARCH;
-  const queryParams = {
+  const queryParams: queryParamProps = {
     breeds: breedType,
     ageMin: ageMin,
     ageMax: ageMax,
