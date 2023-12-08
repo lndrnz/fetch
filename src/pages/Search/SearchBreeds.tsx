@@ -11,7 +11,6 @@ const SearchBreeds = () => {
   const navigate = useNavigate();
 
   const {
-    favoriteResults,
     setFavoriteResults,
     favorites,
     setFavorites,
@@ -44,7 +43,9 @@ const SearchBreeds = () => {
     firstIndex,
     pets,
     numbers,
-  } = useContext(SearchBreedsContext);
+    name,
+    email,
+  }: any = useContext(SearchBreedsContext);
 
   // Adds Pets to Favorite Array and their names
   const handleFavoriteClick = (petId: string, petName: string) => {
@@ -129,7 +130,6 @@ const SearchBreeds = () => {
     setField(e.target.value);
   };
 
-
   // Finds Dogs based on City and State
   const handleLocationSearch = async (
     e: FormEvent,
@@ -187,7 +187,7 @@ const SearchBreeds = () => {
   return (
     <div>
       <div style={{ width: "100vw", display: "flex", justifyContent: "right" }}>
-        <Logout/>
+        <Logout name={name} email={email} />
       </div>
       <div className="search-page">
         <div className="search-header">

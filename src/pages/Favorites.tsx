@@ -4,7 +4,7 @@ import BackButton from "./BackButton";
 import { SearchResult } from "../types/types";
 
 const Favorites = () => {
-  const { favoriteResults } = useContext(SearchBreedsContext);
+  const { favoriteResults }: any = useContext(SearchBreedsContext);
   return (
     <div>
       <div style={{ width: "100vw", display: "flex", justifyContent: "right" }}>

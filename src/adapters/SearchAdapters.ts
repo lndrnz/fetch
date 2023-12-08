@@ -16,7 +16,7 @@ export const searchFunction = async (
   const filteredParams = Object.entries(queryParams).filter(
     ([_, value]) => value !== undefined && value !== ""
   );
-  const addedParams = new URLSearchParams(filteredParams).toString();
+  const addedParams = new URLSearchParams(filteredParams as any).toString();
   const filteredURL = `${apiUrl}${addedParams}`;
   try {
     const response = await axios.get(filteredURL, { withCredentials: true });

@@ -1,7 +1,8 @@
-import { ContextType, createContext, useState } from "react";
+import { createContext, useState } from "react";
 import { AppProviderProps } from "../types/types";
+import { SearchBreedsTypeContext } from "../types/types";
 
-const SearchBreedsContext = createContext<ContextType | undefined>(undefined);
+export const SearchBreedsContext = createContext<SearchBreedsTypeContext | undefined>(undefined);
 
 const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
   children,
@@ -21,6 +22,8 @@ const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
   const [city, setCity] = useState<string>("");
   const [state, setState] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const petsPerPage: number = 6;
   const lastIndex: number = currentPage * petsPerPage;
@@ -67,6 +70,10 @@ const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
         pets,
         totalPages,
         numbers,
+        name,
+        setName,
+        email,
+        setEmail
       }}
     >
       {children}
@@ -74,4 +81,4 @@ const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
   );
 };
 
-export { SearchBreedsContext, SearchBreedsContextProvider };
+export { SearchBreedsContextProvider };

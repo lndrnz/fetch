@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { SearchBreedsContext } from "../context/SearchBreedsContext";
 import { handleInputChange, handleSubmit } from "../adapters/LoginAdapters";
 
 const Login = () => {
-  const [name, setName] = useState<string>("test");
-  const [email, setEmail] = useState<string>("lander@gmail.com");
+  const { name, setName, email, setEmail }: any =
+    useContext(SearchBreedsContext);
   const navigate = useNavigate();
-
   return (
     <div>
       <div className="login">
