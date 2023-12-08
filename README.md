@@ -2,6 +2,8 @@
 
 Pawfect Match is a web application designed to help you find your perfect pet companion. Whether you're looking for a specific breed, age range, or location, Pawfect Match has you covered.
 
+URL: https://pawfectmatchfetch.netlify.app/
+
 The project is built using TypeScript, React, React Router, and base CSS.
 
 ## Features
