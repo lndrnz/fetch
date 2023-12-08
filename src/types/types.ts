@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type SearchResult = {
   age: number;
   breed: string;
@@ -6,7 +8,6 @@ export type SearchResult = {
   name: string;
   zip_code: string;
 };
-
 
 export type LogoutProps = {
   name: string;
@@ -20,10 +21,14 @@ export type favoriteResults = {
   img: string;
   name: string;
   zip_code: string;
-}
+};
 
 export type queryParamProps = {
-  breeds?: string,
-  ageMin?: number,
-  ageMax?: number,
+  breeds?: string;
+  ageMin?: number;
+  ageMax?: number;
 };
+
+export interface AppProviderProps {
+  children: ReactNode;
+}

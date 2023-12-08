@@ -26,7 +26,6 @@ const SearchBreeds = () => {
     breedType,
     setBreedType,
     selectedBreed,
-    setSelectedBreed,
     suggestedBreeds,
     setSuggestedBreeds,
     ageMin,
@@ -41,15 +40,13 @@ const SearchBreeds = () => {
     setState,
     currentPage,
     setCurrentPage,
-    petsPerPage,
     lastIndex,
     firstIndex,
     pets,
-    totalPages,
     numbers,
   } = useContext(SearchBreedsContext);
 
-  console.log(favoriteResults);
+  // Adds Pets to Favorite Array and their names
   const handleFavoriteClick = (petId: string, petName: string) => {
     if (favorites.includes(petId)) {
       setFavorites(favorites.filter((id: string) => id !== petId));
@@ -58,6 +55,8 @@ const SearchBreeds = () => {
       setPetNames([...petNames, petName]);
     }
   };
+
+  // Makes request of favorite pets, places them in an array, and then navigates to favorites page
   const handleFavorites = async () => {
     const response = await getSearch(favorites);
     if (response) {
@@ -90,7 +89,7 @@ const SearchBreeds = () => {
     }
   };
 
-  //Gets All Breeds
+  //Gets All Breeds for suggested inputs
   const handlegetBreeds = async () => {
     const response = await getBreeds();
     if (response) {
@@ -101,14 +100,14 @@ const SearchBreeds = () => {
     }
   };
 
-  //Gets Breeds on render
+  //Gets All Breeds on initial render
   useEffect(() => {
     handlegetBreeds();
   }, []);
 
-  //Handles input search changes
+  //Handles input search changes, and suggests breeds
   const handleBreedChange = (
-    e: ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     setField: (value: any) => void
   ) => {
     setField(e.target.value);
@@ -130,6 +129,8 @@ const SearchBreeds = () => {
     setField(e.target.value);
   };
 
+
+  // Finds Dogs based on City and State
   const handleLocationSearch = async (
     e: FormEvent,
     city?: string,
@@ -148,7 +149,7 @@ const SearchBreeds = () => {
     }
   };
 
-  // Places Search Results in array
+  // Gets Search Results of matching Dogs and puts it in an array
   const handlegetSearch = async () => {
     const response = await getSearch(search);
     if (response) {
@@ -186,7 +187,7 @@ const SearchBreeds = () => {
   return (
     <div>
       <div style={{ width: "100vw", display: "flex", justifyContent: "right" }}>
-        <Logout />
+        <Logout/>
       </div>
       <div className="search-page">
         <div className="search-header">
@@ -260,7 +261,6 @@ const SearchBreeds = () => {
                 placeholder="Maximum Age"
                 onChange={(e) => handleSearchChange(e, setAgeMax)}
               />
-              {/* size of results, from?, sort asc|desc*/}
               <button className="search-bar-button" type="submit">
                 Search
               </button>

@@ -1,6 +1,7 @@
+import { AppProviderProps } from "../types/types";
 import { SearchBreedsContextProvider } from "./SearchBreedsContext";
 
-const AppProvider = ({ children }) => {
+const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return <SearchBreedsContextProvider>{children}</SearchBreedsContextProvider>;
 };
 

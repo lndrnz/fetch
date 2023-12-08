@@ -1,8 +1,11 @@
 import { ContextType, createContext, useState } from "react";
+import { AppProviderProps } from "../types/types";
 
 const SearchBreedsContext = createContext<ContextType | undefined>(undefined);
 
-const SearchBreedsContextProvider = ({ children }) => {
+const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
+  children,
+}) => {
   const [favoriteResults, setFavoriteResults] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [petNames, setPetNames] = useState<string[]>([]);
@@ -63,7 +66,7 @@ const SearchBreedsContextProvider = ({ children }) => {
         firstIndex,
         pets,
         totalPages,
-        numbers
+        numbers,
       }}
     >
       {children}
