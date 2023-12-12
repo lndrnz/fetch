@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { AppProviderProps } from "../types/types";
 import { SearchBreedsTypeContext } from "../types/types";
 
-export const SearchBreedsContext = createContext<SearchBreedsTypeContext | undefined>(undefined);
+export const SearchBreedsContext = createContext<SearchBreedsTypeContext | null>(null);
 
 const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
   children,
@@ -16,8 +16,8 @@ const SearchBreedsContextProvider: React.FC<AppProviderProps> = ({
   const [breedType, setBreedType] = useState<string>("");
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [suggestedBreeds, setSuggestedBreeds] = useState<string[]>([]);
-  const [ageMin, setAgeMin] = useState<number>(0);
-  const [ageMax, setAgeMax] = useState<number>(20);
+  const [ageMin, setAgeMin] = useState<string>("");
+  const [ageMax, setAgeMax] = useState<string>("");
   const [category, setCategory] = useState<boolean>(true);
   const [city, setCity] = useState<string>("");
   const [state, setState] = useState<string>("");

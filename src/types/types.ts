@@ -25,8 +25,8 @@ export type favoriteResults = {
 
 export type queryParamProps = {
   breeds?: string;
-  ageMin?: number;
-  ageMax?: number;
+  ageMin?: string;
+  ageMax?: string;
 };
 
 export interface AppProviderProps {
@@ -52,10 +52,10 @@ export interface SearchBreedsTypeContext {
   setSelectedBreed: Dispatch<SetStateAction<string>>;
   suggestedBreeds: string[];
   setSuggestedBreeds: Dispatch<SetStateAction<string[]>>;
-  ageMin: number;
-  setAgeMin: Dispatch<SetStateAction<number>>;
-  ageMax: number;
-  setAgeMax: Dispatch<SetStateAction<number>>;
+  ageMin: string;
+  setAgeMin: Dispatch<SetStateAction<string>>;
+  ageMax: string;
+  setAgeMax: Dispatch<SetStateAction<string>>;
   category: boolean;
   setCategory: Dispatch<SetStateAction<boolean>>;
   city: string;

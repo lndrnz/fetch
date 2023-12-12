@@ -75,8 +75,8 @@ const SearchBreeds = () => {
   const handleSearch = async (
     e: FormEvent,
     breedType: string,
-    ageMin: number,
-    ageMax: number
+    ageMin: string,
+    ageMax: string
   ) => {
     e.preventDefault();
 

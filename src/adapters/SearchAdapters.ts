@@ -4,8 +4,8 @@ import { queryParamProps } from "../types/types";
 //Takes Search Inputs, creates Search URL, and makes get request of IDs
 export const searchFunction = async (
   breedType?: string,
-  ageMin?: number,
-  ageMax?: number
+  ageMin?: string,
+  ageMax?: string
 ) => {
   const apiUrl = import.meta.env.VITE_SEARCH;
   const queryParams: queryParamProps = {
@@ -16,7 +16,7 @@ export const searchFunction = async (
   const filteredParams = Object.entries(queryParams).filter(
     ([_, value]) => value !== undefined && value !== ""
   );
-  const addedParams = new URLSearchParams(filteredParams as any).toString();
+  const addedParams = new URLSearchParams(filteredParams).toString();
   const filteredURL = `${apiUrl}${addedParams}`;
   try {
     const response = await axios.get(filteredURL, { withCredentials: true });
