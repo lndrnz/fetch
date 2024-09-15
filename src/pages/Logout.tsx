@@ -15,3 +15,4 @@ const Logout: React.FC<LogoutProps> = ({ name, email }) => {
   );
 };
 export default Logout;
+
